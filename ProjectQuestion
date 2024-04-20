@@ -1,0 +1,500 @@
+what api's used
+what dtabase, size of database
+design patterns used in project
+lombok we have used
+which java version
+complex query/project/story worked on
+what are those core CRM application
+Why Mysql , and not NOSQL?
+what groovy changes done to automate CI/CD in pipeline 
+
+1. Can you explain what Platform as a Service is?
+
+Platform as a Service is a cloud computing model that allows developers to create applications and services on a cloud platform without having to manage the infrastructure. This means that developers can focus on their code and not worry about things like server maintenance, scalability, or security.
+
+PaaS can be used to store any kind of data, including text, images, videos, and more.
+
+Some popular PaaS providers include Heroku, Google App Engine, and AWS Elastic Beanstalk.
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+2. How does using PaaS differ from using SaaS or IaaS?
+PaaS is a platform for developers to build, test, and deploy applications. SaaS is a software application that is delivered over the internet. IaaS is a cloud computing service that provides users with access to virtualized computing resources.
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+3. What kinds of applications should not be developed on PaaS?
+PaaS is not well suited for applications that require a lot of customization or that need to be highly scalable. If you need a lot of control over your environment or need to be able to scale up or down quickly, then PaaS is not the right platform for you.
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+4.  How does Microservice Architecture work?
+
+https://www.edureka.co/blog/interview-questions/microservices-interview-questions/ - Diagram
+
+A microservice architecture has the following components:
+
+Clients – Different users from various devices send requests.
+Identity Providers – Authenticates user or clients identities and issues security tokens.
+API Gateway – Handles client requests.
+Static Content – Houses all the content of the system.
+Management –  Balances services on nodes and identifies failures.
+Service Discovery – A guide to find the route of communication between microservices.
+Content Delivery Networks – Distributed network of proxy servers and their data centers.
+Remote Service – Enables the remote access information that resides on a network of IT devices.
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+5. Difference between SOA and Microservice aechitecture?
+
+https://www.geeksforgeeks.org/difference-between-service-oriented-soa-and-micro-service-architecture-msa/
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+
+6. Docker Vs VM (Virtual Machine)
+Virtual Machines	                   Docker Containers
+Need more resources	                   Less resources are used
+Process isolation is done at the hardware level	Process Isolation is done at Operating System-level
+Separate Operating System for each VM	Operating System resources can be shared within Docker
+VMs can be customized	Custom container setup is easy
+Takes time to create a Virtual Machine	The creation of docker is very quick
+Booting takes minutes	 Booting is done within seconds.
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+7. How is Docker different from other container technologies?
+
+There is no limitation on running Docker as the underlying infrastructure can be your laptop or else your Organization’s Public / Private cloud space
+
+Isolation: Docker uses a lightweight containerization approach that encapsulates applications and their dependencies into isolated containers.
+
+Ecosystem: Docker has a large and active ecosystem with centralized image registry called Docker Hub.
+
+Other container technologies like Podman, rkt, and Containerd
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+
+8. How far do Docker containers scale?
+
+Best examples in the Web deployments like Google, Twitter and best examples in the Platform Providers like Heroku, and dotCloud run on Docker which can scale from the ranges of hundreds of thousands to millions of containers running in parallel, given the condition that the OS and the memory don’t run out from the hosts which runs all these innumerable containers hosting your applications.
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+
+9. What are the various states that a Docker container can be in at any given point in time?
+
+There are four states that a Docker container can be in, at any given point in time. Those states are as given as follows:
+
+• Running
+• Paused
+• Restarting
+• Exited
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+10. Why Springboot is preferred over Spring ?
+
+1. Dependency Resolution/ Avoid version conflict - 
+   In spring we have to manually assign the version in pom.xml for each dependency.
+   In Spring boot it requires less dependency and version is taken from the parent dependency
+
+2. Embedded Tomcat server
+   In Spring we first have to manually build the jar/war files and then push it to the External server to access the application functionality.
+   But In Sprinboot it automatically load the jar from target folder and load it into the application context and kicked up the embedded server.
+
+3. Provide production ready features - such as metrics, helthchecks 
+   Spring boot has separate starter called as actuator that is easily monitor the application in each environment
+   but In Spring we have to rely on couple of dashboard to monitor application
+
+
+ -------------------------------------------------------------------------------------------------------------------------------------
+
+11. What are all Springboot starter used in project?
+
+1. spring boot starter web - use for web specific application
+2. spring boot starter data jpa - use if you want to integrate your application with persistence layer
+3. spring boot starter web services - if you want to expose soap based web services
+4. spring boot starter security - to include the security as a part of your application
+5. spring boot starter for Spring cloud - If you are building microservices and need features like load balancing, service discovery, configuration management
+6. spring boot starter thymleaf - to include the static webpage to your application.
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+12. What are all Annotations used in project ?
+
+@SpringBootApplication ( combination of - @Configuration, @EnableAutoConfiguration, @ComponentScan)
+
+a. @Configuration - It is a class level annotation indicating that an object is a source of bean defination.
+   @Configuration classes declare beans through @Bean annotated method
+
+b. @EnableAutoConfiguration - 
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+13. What is autoconfiguration in SpringBoot?
+
+Spring Boot auto-configuration helps us automatically configure a Spring application based on the dependencies that are present on the classpath.
+
+Like if you have added the dependency - spring boot starter web then what all classes will be autoconfigured by springboot
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+14. What are all the design pattern used in project?
+
+*Singelton : 
+Example :
+
+a. Configuration Manager:
+A configuration manager that reads configuration settings from a file or another source can be implemented as a Singleton. This ensures that there is only one configuration manager throughout the application.
+
+b. User Authentication Manager:
+For user authentication in a system, you might use a Singleton to manage user sessions and authentication tokens. This ensures that there is a single point for handling user authentication across the application.
+
+Like for a particular EPT tracker only a single tokenId (team's based - passed in jenkins) is allowed to authenticate to its respective dashbord performance runs.
+
+c. Resource Pooling for Performance Testing:
+In a performance testing scenario where you are simulating a large number of users making requests to a system, you might want to use the Singleton pattern to create a pool of shared resources. This can be beneficial for managing connections to external services, databases, or other resources.
+
+public class ResourcePool {
+    private static ResourcePool instance;
+    private List<Resource> resourceList;
+
+    private ResourcePool() {
+        // Initialize and create a pool of resources
+        resourceList = new ArrayList<>();
+        // Populate the resourceList with instances of Resource
+    }
+
+    public static synchronized ResourcePool getInstance() {
+        if (instance == null) {
+            instance = new ResourcePool();
+        }
+        return instance;
+    }
+
+    public synchronized Resource acquireResource() {
+        // Logic to acquire and return a resource from the pool
+    }
+
+    public synchronized void releaseResource(Resource resource) {
+        // Logic to release a resource back to the pool
+    }
+
+    // Other methods related to managing the resource pool
+}
+
+
+d. Database Connection Pooling:
+When managing database connections, you might want to use a Singleton to create a connection pool. This ensures that there's only one pool of database connections shared across different parts of your application.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+
+** Observer Pattern:
+The Observer pattern is used for implementing distributed event handling systems. In a multithreaded environment, it helps manage the communication between threads. Java's Observer and Observable classes are an example of this pattern.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+
+*** Factory Design Pattern:
+
+We are using factory Pattern to create instances of a messaging system in a microservices architecture.Right now we are using RabiitMQ but in future if it require to use diff messaging system like Apache so we are using this factory pattern to create the appropriate messaging system instance.
+This flexibility allows the microservice to seamlessly switch between different messaging systems without modifying the core messaging logic.
+
+CODE :
+
+// Product interface - MessagingSystem
+interface MessagingSystem {
+    void sendMessage(String message);
+}
+
+// Concrete Products - RabbitMQ
+class RabbitMQ implements MessagingSystem {
+    @Override
+    public void sendMessage(String message) {
+        System.out.println("RabbitMQ: Sending message - " + message);
+        // Actual implementation details for sending messages via RabbitMQ
+    }
+}
+
+// Concrete Products - Apache Kafka
+class Kafka implements MessagingSystem {
+    @Override
+    public void sendMessage(String message) {
+        System.out.println("Apache Kafka: Sending message - " + message);
+        // Actual implementation details for sending messages via Kafka
+    }
+}
+
+// MessagingSystemFactory interface
+interface MessagingSystemFactory {
+    MessagingSystem createMessagingSystem();
+}
+
+// Concrete MessagingSystemFactories
+class RabbitMQFactory implements MessagingSystemFactory {
+    @Override
+    public MessagingSystem createMessagingSystem() {
+        return new RabbitMQ();
+    }
+}
+
+class KafkaFactory implements MessagingSystemFactory {
+    @Override
+    public MessagingSystem createMessagingSystem() {
+        return new Kafka();
+    }
+}
+
+// Client code in a microservice
+public class MessagingMicroservice {
+    public static void main(String[] args) {
+        // Get the messaging system type from configuration
+        String messagingSystemType = "RabbitMQ"; // This could come from configuration or elsewhere
+
+        // Create the appropriate messaging system using the factory
+        MessagingSystemFactory messagingSystemFactory;
+        if ("RabbitMQ".equals(messagingSystemType)) {
+            messagingSystemFactory = new RabbitMQFactory();
+        } else if ("Kafka".equals(messagingSystemType)) {
+            messagingSystemFactory = new KafkaFactory();
+        } else {
+            throw new IllegalArgumentException("Unknown messaging system type: " + messagingSystemType);
+        }
+
+        // Use the messaging system
+        MessagingSystem messagingSystem = messagingSystemFactory.createMessagingSystem();
+        messagingSystem.sendMessage("Hello, Microservices!");
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+
+15. Why are you using RabbitMq and not Apache Kafka?
+
+https://aws.amazon.com/compare/the-difference-between-rabbitmq-and-kafka/
+
+RabbitMQ and Apache Kafka allow producers to send messages to consumers. Producers are applications that publish information, while consumers are applications that subscribe to and process information.
+Producers and consumers interact differently in RabbitMQ and Kafka
+
+RabbitMQ as a post office that receives mail and delivers it to the intended recipients. Meanwhile, Kafka is similar to a library, which organizes messages on shelves with different genres that producers publish. Then, consumers read the messages from the respective shelves and remember what they have read. 
+
+RabbitMq                                                              Kafka
+a.  The producer sends and monitors if the message reaches   The producers publish messages to the queue regardless of whether             the intended consumer.                                   consumers have retrieved them 
+                                        
+b. RabbitMQ is a general-purpose message broker that        Kafka is a distributed event streaming platform that supports
+   prioritizes end-to-end message delivery.                 the real-time exchange of continuous big data.
+
+c. RabbitMQ’s architecture is designed for complex message  Kafka uses partition-based design for real-time, high throughput stream
+   routing. It uses the push model. Producers send messages processings. It uses the pull model. Producers publish messages to topics
+   to consumers with different rules.                       and partitions that consumers subscribe to. 
+
+d. It supports the priority queue to processes higher      It doesn't support priority queues. It treats all messages as equal when 
+   priority messages ahead of normal messages.             distributing them to their respective partitions.
+  
+e. It sends and queues messages in a specific order and    It does not support direct producer-consumer exchanges, the consumer pulls
+   consumers receive messages in the order they were sent. messages from the partition in a different order.
+
+f. It routes the message to the destination queue.Once     It appends the message to a log file, which remains until its retention
+   read, the consumer sends an (ACK) reply to the broker   period expires. That way, consumers can reprocess streamed data at any time
+   which then deletes the message from the queue.          within a stipulated period
+
+g. RabbitMQ's performance averages thousands of messages   Kafka can send millions of messages per second as it uses sequential disk 
+   per second                                              I/O to enable a high-throughput message exchange.
+
+h. RabbitMQ comes with administrative tools to manage user  Apache Kafka architecture provides secure event streams with TLS
+  permissions and broker security.
+
+i. RabbitMQ has low latency. It sends thousands of messages Kafka has real-time transmission of up to millions of messages per second.
+   per second
+
+
+Now why we are using Rabbit MQ in our project is because :
+
+a. We need to deliever the message in order which is supported by RabbitMQ but not by Apache
+b. We have some high priorty jobs which needs to be process earlier than normal jobs which is supported by RabbitMQ but not by Apache
+c. It will increase the database size overhead if we used apache as it is keeping the message for some retention time which is not a    use case of our microservices means once consumers read it just delete it from queue and saves the database overhead size.
+d. Our service is using a push mechanism instead of a pull mechanism so Rabbitmq 
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+
+16. What are all the Salesforce core CRM application?
+
+Some of the core CRM applications offered by Salesforce:
+
+a. Sales Cloud
+b. Service Cloud
+c. Marketing Cloud
+d. Commerce Cloud
+
+Quip:
+
+Quip, acquired by Salesforce, is a collaboration platform that integrates with Salesforce CRM. It includes tools for document creation, editing, and collaboration within the context of Salesforce records.
+
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+17. Explain your PLSS UI 
+
+
+EPT Tracker  chrome  safari mozilla edge
+
+Android       96      94     92      91
+App Pages     97      87     94      93
+Records
+LWC Mixed Node
+Bootstrap
+
+These are the above EPT (Experience Page time) trackers whose availability is showing as a part of daily runs and historic availability.
+
+and for comparing the performance runs with all detailed metrics we have a platform called PAF Dashboard there its has availabilty of all the runs of each release in a detailed metrics with screenshot.
+This Dashbord shows the status in Running/Scheduled at /Failed/performance number(Eg - thats shows regression for each soleil/jmeter usecase +2.4 or -1.5)
+
+We also look at the Debug logs to see whats caused issue for this particular job.  
+
+We have jobs in Priorty P1, P2 and each job is scheduled either daily/weekly/twice through EE and display it on PLSS UI.
+We have a facility to restart/stop jobs directly from PLSS
+We can see for a particular job how many soleil usecase are running/failed/completed in a summary view.
+We have setup a authentication for every user through github credential.
+Visualise the jobs triggered on jenkins and running on PLSS Dashboard are same
+
+Once the user is authenticated we are provding the below options:
+1. Create client machine
+2. Create server for testing based on their requirement and expiry
+3. Run usecase on existing VPOD ( server)
+4. A/B testing on shelveshet
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+
+18. Why are you using SQL database and not NOSQL ?
+
+a. As our data has a well-defined structure and relationships between different entities, a relational database like MySQL(we are using POSTgresSQL), which uses SQL, which is a good fit whereas in NOSQL it is suitable for unstructured or semstructured data.
+
+b. Also our resources are distributed across a single server which suits vertical scalability property in SQL whereas in NOSQL data/resources is distributed across a multiple servers making it horizontally scalable ( which is not possible using PostgresSQL as it does not support horizontal scaling)
+
+c. We do not want data redundency in our data and to eliminate that we are using Normalization technique which is supported by SQL whereas NOSQL does not support this Normalization.
+
+d.We are adhere to a fixed schema which is supported by SQL but NOSQL support dynamic schema.
+
+e. Also its not like we have a millions/thousands of users using our platform, its just we have given access to teams within Salesforce. So it will not cost any issue when it will scale.
+
+Also we are using PostgresSQL which is a combination of SQL and NOSQL. So in future if we require we can combine NoSQL data with SQL tables. And it will work correctly.
+
+I agree for SQL databases, scalability can be quite problematic. If you decide to allocate related data, you might consider clustering multiple servers around one central store.
+
+PostgresSql is adhere to ACID properties which ensure the transactions remain correct and reliable in DBMS during the process of writing or updating data which is not supported by NOSQL.
+Although there is no need of transaction facility in our case but still consistency and availability is priorty of our services.
+It should not reflect the older data on UI or the database should not go down in any case.
+
+
+** For the adhoc jobs/ requests we are keeping the data for just 2 weeks and for official jobs we are keeping the data for a long runs  around one quarter i.e for a particular release**
+
+Here we are using PostgreSQL which is - 
+
+Object-oriented database management system, meaning it’s a hybrid SQL/NoSQL database solution 
+Free and open-source 
+Compatibility with a wide range of operating systems 
+Active community and many third-party service providers 
+High ACID compliance 
+Uses pure SQL 
+Works best for use cases where data doesn’t support a relational model. It also works well for extra-large databases and when running complicated queries
+
+
+DB table :
+
+jobname jobid buildId starttime endtime duration vpodId status
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+
+19. Can you explain the alerting tool developed using Promethius ?
+
+Prometheus is an open-source monitoring and alerting toolkit designed for reliability and scalability. It collects metrics from configured targets(different services) at specified intervals, evaluates rule expressions, and triggers alerts when conditions are met.
+We have used Grafana dashboard to display system metrics for a server monitored by Prometheus.They provided a real-time and historical overview of system health, alert status, and performance metrics.
+
+
+
+We have created a separate service i.e alerting service that are involved configuring Prometheus to collect metrics from various services and infrastructure components.
+
+  a. What specific metrics and indicators were monitored using the developed tool?
+     CPU, Memory usage, network, Status code, histroic availability of a particular service running on a VPOD
+
+
+  b. How does Prometheus handle alerting, and what role did it play in improving MTTR?
+     Answer: Prometheus employs a rule-based alerting system. We defined alerting rules based on thresholds and conditions for      different metrics. When these conditions were met, Prometheus triggered alerts. This proactive alerting significantly reduced the      time it took to detect and respond to incidents, contributing to the improvement in Mean Time to Recovery (MTTR).
+
+     If supposse DB's size is getting > 95% we will get a condition which satisfies and it will trigger alerts and sends a      notification to our slack channel.
+     Our case all the services/DB/jenkins are having the data on this alert service 
+
+
+ c. What challenges did you face while developing the monitoring and alerting tool, and how did you overcome them?
+    While developing the service the major challenge was the connectivity issue with our all services and other teams services within     org. For that we had to raise a separate SA ( security assessment ) with all detailed Network diagram and details. 
+
+   Where we will deploy this service(definatley not on vpod - because in future we are moving away from vpod and migrating to   salesforce falcon - cloud) so that it will be active 24* 7 and check the health status of each server
+
+   To onboard any new service to our alerting service there will be simple and easy process for that so other teams in org will use      that alerting service
+
+   We addressed these challenges through close collaboration with the development and operations teams, iterative testing, and fine-   tuning based on feedback.
+
+
+d. How you have tested your service is it working fine ( giving false positive or false negative response) 
+   So whenever we deploy our code to production the service goes down for some minutes and at that time it sends a notifiction to our    slack channel that the service is getting down and on Grafna dashboard the status code will change from 200 to 404. This way we    have identified that our alerting service is working fine.
+
+
+e. Can you provide examples of incidents where the automated monitoring and alerting system helped in reducing downtime?
+   Earlier after a long time we get to know that our services are down by some manual intervention like logging into the vpod - unable    to reach or jobs are getting failed at later stages that are running on a particular vpod. 
+   But Now, even if a service is down for a 2 sec we got a alert on our slack channel and we quickly respond or try to find out whats    the root cause of it and resolve the issue before it impacted users. The automated system's quick detection and alerting played a    crucial role in minimizing downtime during such incidents.
+
+
+f. What considerations did you take into account for scaling the monitoring solution as the infrastructure grew?
+    We designed the monitoring architecture to be horizontally scalable. This involved deploying multiple Prometheus servers in a     federated setup
+
+g. What types of visualizations and panels did you use in Grafana to represent key metrics for your alerting system?
+   We have visulised the metrics using time-series graph
+
+h. Did you utilize Grafana's alerting features, and if so, can you explain how you configured and managed alerts within Grafana?
+   Yes, we leveraged Grafana's alerting features to set up alerts for critical metrics. We defined alert conditions, thresholds, and    notification channels. Alerts were configured to notify the operations team through channels like email, Slack, or other preferred    communication tools.
+
+
+i. What considerations did you take into account for securing access to Grafana dashboards, ensuring that only authorized personnel    could view and modify them?
+   Access to Grafana dashboards was controlled through role-based access control (RBAC). We defined user roles with specific    permissions, ensuring that only authorized personnel could view, modify, or create dashboards. SSL/TLS encryption was implemented    for secure communication.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
